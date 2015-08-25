@@ -1,0 +1,33 @@
+{
+  "analyze": true,
+  "author": "Matt Miller",
+  "dependencies": {
+    "async": "^1.4.0",
+    "byline": "^4.2.1",
+    "config": "1.12.0",
+    "express": "^4.13.3",
+    "express-cluster": "0.0.3",
+    "glob": "^5.0.14",
+    "jsonapi-serializer": "^2.0.0",
+    "moment": "^2.10.3",
+    "mongodb": "^2.0.39",
+    "ps-node": "0.0.4",
+    "request": "2.53.0",
+    "simple-node-logger": "^0.92.21",
+    "string_score": "^0.1.22",
+    "xml2js": "^0.4.9"
+  },
+  "devDependencies": {
+    "mocha": "2.2.5",
+    "should": "7.0.2"
+  },
+  "scripts": {
+    "test": "mocha test"
+  },
+  "description": "",
+  "license": "MIT",
+  "name": "shadowcat-api",
+  "preferGlobal": false,
+  "private": false,
+  "version": "0.0.1"
+}
