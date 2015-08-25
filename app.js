@@ -18,6 +18,7 @@ if (cluster.isMaster) {
 
 
 	var JSONAPISerializer = require('jsonapi-serializer');
+	var config = require("config")
 
 	var express = require('express');
 	var db = require('./lib/db.js');
@@ -86,8 +87,8 @@ if (cluster.isMaster) {
 	});
 
 
-	var server = app.listen(3000, function() {
-		console.log('Server started on port 3000');
+	var server = app.listen(config['Port'], function() {
+		console.log('Server started on port ' + config['Port']);
 	});
 
 

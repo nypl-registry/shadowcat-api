@@ -1,9 +1,17 @@
 {
-  "DB": {
-    "mongoConnectURL" : "mongodb://123.456.789.000:27017/db",
-    "mongoIp" : "123.456.789.000",
+  "DbShadowcat": {
+    "mongoConnectURL" : "mongodb://:27017/db",
+    "mongoIp" : "",
     "mongoPort" : 27017,
     "mongoDb" : "db"
+  },
+  "DbApi": {
+    "mongoConnectURL" : "mongodb://:27017/db",
+    "mongoIp" : "",
+    "mongoPort" : 27017,
+    "mongoDb" : "db"
+  },
 
-  }
+  "Port" : 3000
+
 }
