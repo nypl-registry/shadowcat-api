@@ -21,7 +21,7 @@ if (cluster.isMaster) {
 	var config = require("config")
 
 	var express = require('express');
-	var db = require('./lib/db.js');
+	var db = require(__dirname + '/lib/db.js');
 	var app = express();
 
 
@@ -85,6 +85,31 @@ if (cluster.isMaster) {
 
 		})
 	});
+
+
+	app.get('/api/bnumber/:bnumber', function(req, res) {
+
+		
+		db.returnBnumber(req.params.bnumber, function(err,results){
+			res.type('application/json');
+
+			if (err){
+				res.status(500).send( { } );
+			}else{
+
+				if (results.length===0){
+					res.status(200).send( { } );	
+				}else{
+					//var json = new sampleSerializer(results).serialize();		
+					res.status(200).send(JSON.stringify(results[0]));				
+				}
+			}
+
+
+		})
+	});
+
+
 
 
 	var server = app.listen(config['Port'], function() {
