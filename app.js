@@ -21,11 +21,14 @@ if (cluster.isMaster) {
 	var config = require("config")
 
 	var express = require('express');
+	var serveStatic = require('serve-static')
+
 	var db = require(__dirname + '/lib/db.js');
 	var app = express();
 
 
 
+	app.use(serveStatic(__dirname + '/public', {'index': ['index.html']} ))
 
 	//serializer
 	var sampleSerializer = function(sample) {
@@ -102,6 +105,30 @@ if (cluster.isMaster) {
 				}else{
 					//var json = new sampleSerializer(results).serialize();		
 					res.status(200).send(JSON.stringify(results[0]));				
+				}
+			}
+
+
+		})
+	});
+
+
+	app.get('/api/bots', function(req, res) {
+
+		
+		db.returnBots(function(err,results){
+			
+			res.type('application/json');
+
+			if (err){
+				res.status(500).send( [] );
+			}else{
+
+				if (results.length===0){
+					res.status(200).send( [] );	
+				}else{
+					//var json = new sampleSerializer(results).serialize();		
+					res.status(200).send(JSON.stringify(results));				
 				}
 			}
 

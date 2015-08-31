@@ -13,6 +13,7 @@
     "mongodb": "^2.0.39",
     "ps-node": "0.0.4",
     "request": "2.53.0",
+    "serve-static": "^1.10.0",
     "simple-node-logger": "^0.92.21",
     "string_score": "^0.1.22",
     "xml2js": "^0.4.9"
