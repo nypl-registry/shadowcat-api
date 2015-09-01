@@ -40,8 +40,18 @@
 		   if (bytes == 0) return '0 Byte';
 		   var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
 		   return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
-		};
+		}
 
+		function getAbsoluteHeight(el) {
+		  // Get the DOM Node if you pass in a string
+		  el = (typeof el === 'string') ? document.querySelector(el) : el; 
+
+		  var styles = window.getComputedStyle(el);
+		  var margin = parseFloat(styles['marginTop']) +
+		               parseFloat(styles['marginBottom']);
+
+		  return Math.ceil(el.offsetHeight + margin);
+		}
 
 
 		function update(){
@@ -66,9 +76,9 @@
 
 			    	data[x].isActive = (Math.floor((new Date).getTime()/1000) - data[x].lastActivity > 300) ? false : true;
 
-			    	data[x].runningFor = Math.floor((Math.floor((new Date).getTime()/1000) - data[x].born) / 60 / 60); 
+			    	data[x].runningFor = parseFloat( (Math.floor((new Date).getTime()/1000) - data[x].born) / 60 / 60).toFixed(1); 
 
-			    	data[x].lastSeen = Math.floor((Math.floor((new Date).getTime()/1000) - data[x].lastActivity) / 60 / 60); 
+			    	data[x].lastSeen = parseFloat( (Math.floor((new Date).getTime()/1000) - data[x].lastActivity) / 60 / 60).toFixed(1); 
 
 			    	data[x].totalBytes = bytesToSize(data[x].totalBytes)
 
@@ -81,7 +91,7 @@
 
 				document.getElementById("bots").innerHTML = template({bots: data });
 
-
+				document.body.style.minHeight = getAbsoluteHeight("#bots") + 100 + 'px';
 
 
 			  } else {
@@ -105,6 +115,7 @@
 
 
         document.addEventListener("DOMContentLoaded", function() {
+
 
         	update();
 
@@ -158,6 +169,15 @@
 			      				
 
 			      			<% } %>
+
+		      				<tr>
+			      				<td>Successful Matches:</td>
+			      				<td><%=bot.totalSucessfulMatches%></td>
+			      			</tr>
+		      				<tr>
+			      				<td>Failed Matches:</td>
+			      				<td><%=bot.totalFailedMatches%></td>
+			      			</tr>
 
 			      			<tr>
 			      				<td>Made:</td>
