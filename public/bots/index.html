@@ -78,6 +78,10 @@
 
 			    	data[x].runningFor = parseFloat( (Math.floor((new Date).getTime()/1000) - data[x].born) / 60 / 60).toFixed(1); 
 
+                    data[x].requestsPerMin = Math.floor(data[x].totalRequests / ((Math.floor((new Date).getTime()/1000) - data[x].born) / 60));
+
+                    //data[x].requestsPerMin = data[x].requestsPerMin
+
 			    	data[x].lastSeen = parseFloat( (Math.floor((new Date).getTime()/1000) - data[x].lastActivity) / 60 / 60).toFixed(1); 
 
 			    	data[x].totalBytes = bytesToSize(data[x].totalBytes)
@@ -183,6 +187,14 @@
 			      				<td>Made:</td>
 			      				<td><%=bot.totalRequests%> API calls</td>
 			      			</tr>
+                            <tr>
+                                <td></td>
+                                <td><%=bot.requestsPerMin%> per minute</td>
+                            </tr>
+
+
+
+
 			      			<tr>
 			      				<td>Downloaded:</td>
 			      				<td><%=bot.totalBytes%></td>
