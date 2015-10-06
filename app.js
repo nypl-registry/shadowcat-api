@@ -112,6 +112,30 @@ if (cluster.isMaster) {
 		})
 	});
 
+
+
+	app.get('/api/stocknumber/:stocknumber', function(req, res) {
+
+		
+		db.returnStockNumber(req.params.stocknumber, function(err,results){
+			res.type('application/json');
+
+			if (err){
+				res.status(500).send( []);
+			}else{
+
+				if (results.length===0){
+					res.status(200).send( [] );	
+				}else{
+					//var json = new sampleSerializer(results).serialize();		
+					res.status(200).send(JSON.stringify(results));				
+				}
+			}
+
+
+		})
+	});
+
 	app.get('/api/isbnworks/:isbn', function(req, res) {
 
 		
