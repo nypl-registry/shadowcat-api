@@ -28,6 +28,9 @@ if (cluster.isMaster) {
 
 
 
+
+
+
 	app.use(serveStatic(__dirname + '/public', {'index': ['index.html']} ))
 
 	//serializer
@@ -112,6 +115,30 @@ if (cluster.isMaster) {
 		})
 	});
 
+	app.get('/api/items/:bnumber', function(req, res) {
+
+		
+		db.returnItemByBibIds(req.params.bnumber, function(err,results){
+			res.type('application/json');
+
+			if (err){
+				res.status(500).send( { } );
+			}else{
+
+				if (results.length===0){
+					res.status(200).send( { } );	
+				}else{
+					//var json = new sampleSerializer(results).serialize();		
+					res.status(200).send(JSON.stringify(results, null, 2));				
+				}
+			}
+
+
+		})
+	});
+
+	
+
 
 
 	app.get('/api/stocknumber/:stocknumber', function(req, res) {
@@ -179,6 +206,9 @@ if (cluster.isMaster) {
 
 		})
 	});
+
+
+
 
 
 
