@@ -208,6 +208,49 @@ if (cluster.isMaster) {
 	});
 
 
+	app.get('/api/audience/', function(req, res) {
+
+
+		var isbn = (req.query.isbn) ? req.query.isbn : false
+		var oclc = (req.query.oclc) ? req.query.oclc : false
+		var bnumber = (req.query.bnumber) ? req.query.bnumber : false
+		var owi = (req.query.owi) ? req.query.owi : false
+		var stock = (req.query.stocknumber) ? req.query.stocknumber : false
+
+		var q = []
+
+		if (isbn) q.push({ 'sc:isbn' : isbn})
+
+		if (oclc) {
+			q.push({ 'sc:oclc' : oclc})
+			q.push({ 'classify:oclc' : oclc})
+		}
+		if (bnumber)  q.push({ '_id' : bnumber})
+		if (owi)  q.push({ 'classify:owi' : owi})
+		if (stock)  q.push({ 'sc:stockNumber' : stock})
+
+
+		if (q.length>0){		
+			db.returnAudience(q, function(err,results){
+				res.type('application/json');
+
+				if (err){
+					res.status(500).send({});
+				}else{
+
+					if (results.length===0){
+						res.status(200).send( {} );	
+					}else{
+						//var json = new sampleSerializer(results).serialize();		
+						res.status(200).send(JSON.stringify(results));				
+					}
+				}
+			})
+		}else{
+			res.status(200).send({});
+		}
+	});
+
 
 
 
