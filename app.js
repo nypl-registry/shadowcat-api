@@ -96,7 +96,7 @@ if (cluster.isMaster) {
 	app.get('/api/bnumber/:bnumber', function(req, res) {
 
 		
-		db.returnBnumber(req.params.bnumber, function(err,results){
+		db.returnBnumber(req.params.bnumber,prettyPrint, function(err,results){
 			res.type('application/json');
 
 			if (err){
@@ -107,7 +107,7 @@ if (cluster.isMaster) {
 					res.status(200).send( { } );	
 				}else{
 					//var json = new sampleSerializer(results).serialize();		
-					res.status(200).send(JSON.stringify(results[0]));				
+					res.status(200).send(JSON.stringify(results[0],null,2));				
 				}
 			}
 
