@@ -96,7 +96,7 @@ if (cluster.isMaster) {
 	app.get('/api/bnumber/:bnumber', function(req, res) {
 
 		
-		db.returnBnumber(req.params.bnumber,prettyPrint, function(err,results){
+		db.returnBnumber(req.params.bnumber, function(err,results){
 			res.type('application/json');
 
 			if (err){
